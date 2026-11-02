@@ -737,6 +737,7 @@ h3{font-size:28px;font-weight:600}
 .webtag{margin-left:14px;font-size:15px;font-weight:700;color:var(--blue);background:var(--soft);border-radius:99px;padding:4px 10px}
 .isdk .webtag{background:rgba(255,255,255,.12);color:var(--gold)}
 .dsteps em{grid-column:2;font-style:normal;font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.tl1 .th i.lg{background:#fff;border:2px solid var(--c);box-shadow:0 6px 14px -8px rgba(6,34,79,.5)}.tl1 .th i.lg img{width:32px;height:32px;object-fit:contain}
 
 /* ---------- Simulasi data mentah ke keputusan ---------- */
 .dsim{gap:16px}
@@ -1774,10 +1775,12 @@ const TASKS=[
  ['Riset','search',['perplexity','gemini','chatgpt','claude']],
  ['Olah data dan Excel','sheet',['claude','chatgpt','copilot']],
  ['Aplikasi dan otomasi','terminal',['claude','chatgpt']]];
+const TLOGO={copilot:'aset/logo/copilot.png',chatgpt:'chatgpt.com',gemini:'gemini.google.com',notebooklm:'notebooklm.google.com',perplexity:'perplexity.ai',claude:'claude.ai'};
+const tlogo=k=>{const v=TLOGO[k];return v.startsWith('aset/')?v:`https://www.google.com/s2/favicons?domain=${v}&sz=128`};
 let tk=-1;
 function renderTools(){$('#tasks').innerHTML='<small>Pekerjaan</small>'+TASKS.map((t,i)=>`<button data-i="${i}" aria-pressed="${i===tk}">${IKON[t[1]]}${t[0]}</button>`).join('');
  const on=tk<0?null:TASKS[tk][2];
- $('#tools').innerHTML=TOOLS.map(t=>{const r=on?on.indexOf(t[0]):-1;return`<div class="tl1 ${on?(r>=0?'hit':'dim'):''} ${t[0]==='claude'?'mine':''}" style="--c:${t[3]}">${r>=0?`<span class="rank">${r===0?'Paling sesuai':'Alternatif'}</span>`:''}${t[0]==='claude'?'<span class="pick">Pilihan narasumber</span>':''}<div class="th"><i>${t[4]}</i><div><b>${t[1]}</b><small>${t[2]}</small></div></div><ul>${t[5].map(x=>`<li>${x}</li>`).join('')}</ul><div class="gov"><em>Di pemerintahan</em>${t[7]}</div></div>`}).join('');
+ $('#tools').innerHTML=TOOLS.map(t=>{const r=on?on.indexOf(t[0]):-1;return`<div class="tl1 ${on?(r>=0?'hit':'dim'):''} ${t[0]==='claude'?'mine':''}" style="--c:${t[3]}">${r>=0?`<span class="rank">${r===0?'Paling sesuai':'Alternatif'}</span>`:''}${t[0]==='claude'?'<span class="pick">Pilihan narasumber</span>':''}<div class="th"><i class="lg"><img src="${tlogo(t[0])}" alt="Logo ${t[1]}" onerror="this.parentNode.classList.remove('lg');this.parentNode.textContent='${t[4]}'"></i><div><b>${t[1]}</b><small>${t[2]}</small></div></div><ul>${t[5].map(x=>`<li>${x}</li>`).join('')}</ul><div class="gov"><em>Di pemerintahan</em>${t[7]}</div></div>`}).join('');
  $$("#tasks button").forEach(b=>b.onclick=()=>{atClear();tk=tk===+b.dataset.i?-1:+b.dataset.i;renderTools()})}
 ON['Ragam AI untuk pegawai']=()=>{tk=-1;renderTools()};
 LOOP['Ragam AI untuk pegawai']=()=>AT.push(setTimeout(()=>{tk=0;renderTools();AT.push(setInterval(()=>{tk=(tk+1)%TASKS.length;renderTools()},6500))},5000));
