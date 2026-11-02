@@ -320,7 +320,7 @@ h3{font-size:28px;font-weight:600}
 .ch span{font-size:24px}.ch b{font-family:var(--h);font-size:18px}
 .uc{border:0;background:#fff;border-radius:18px;padding:14px 16px;text-align:left;display:flex;gap:14px;align-items:center;box-shadow:0 14px 34px -24px rgba(6,34,79,.6);transition:transform .2s,opacity .3s,filter .3s}
 .uc:hover{transform:translateY(-3px) scale(1.01)}
-.uc.dim{opacity:.25;filter:grayscale(1)}
+.uc.dim{opacity:.5;filter:grayscale(.7)}
 .col .uc{flex:1;max-height:150px;padding:18px 20px}.col .uc .ic{width:72px;height:72px;font-size:44px}.col .uc b{font-size:20px}.col .uc small{font-size:16px}
 .uc .ic{font-size:38px;width:58px;height:58px;border-radius:16px;background:var(--soft);display:grid;place-items:center;flex:none}
 .uc b{font-family:var(--h);font-size:17px;line-height:1.25;display:block}
@@ -574,13 +574,13 @@ h3{font-size:28px;font-weight:600}
 .intro.idle .vctl,.intro.done .vctl{opacity:0!important;pointer-events:none}
 
 /* ---------- v10: Tusi Setjen ---------- */
-.tusi{display:grid;grid-template-columns:430px 470px 1fr;gap:36px;flex:1;min-height:0;align-items:center}
+.tusi{display:grid;grid-template-columns:420px 520px 1fr;gap:36px;flex:1;min-height:0;align-items:center}
 .tq{display:flex;flex-direction:column;gap:22px}.tq h2{font-size:44px}
 .pil{display:flex;flex-direction:column;gap:10px}
 .pil div{background:#fff;border-left:6px solid var(--gold);border-radius:14px;padding:14px 18px;box-shadow:0 14px 34px -26px rgba(6,34,79,.6);animation:incl .7s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(var(--i)*200ms + .2s)}
 .pil b{font-family:var(--h);font-size:22px;display:block}.pil small{font-size:15px;color:var(--muted)}
 .tq .src{font-style:italic;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
-.hub{position:relative;width:470px;height:470px}
+.hub{position:relative;width:520px;height:520px}
 .hlines{position:absolute;inset:0;width:100%;height:100%}
 .hlines line{stroke:#BFD2EA;stroke-width:.35;stroke-dasharray:1.2 1.2}
 .hlines line.on{stroke:var(--gold);stroke-width:.8;stroke-dasharray:none;animation:flow 1s linear infinite}
@@ -1704,7 +1704,7 @@ const LOOP={};
 LOOP['Peta jam kerja Setjen']=()=>AT.push(setInterval(()=>{tsel=(tsel+1)%PETA.length;renderTree()},3800));
 LOOP['Use case AI']=()=>{let i=0;AT.push(setInterval(()=>{if($('.modal'))return;tf=TF[(++i)%TF.length];renderBoard()},2800))};
 LOOP['Etika AI']=()=>{const cyc=()=>{const c=$('#ecd');c.classList.remove('run');void c.offsetWidth;c.classList.add('run');AT.push(setTimeout(()=>{const e=ETI[ei],b=$$('.ebtn button').find(x=>x.dataset.a===e[1]);if(b)b.click();AT.push(setTimeout(()=>{ei=(ei+1)%ETI.length;renderEti();cyc()},9000))},15000))};cyc()};
-LOOP['Prompt Lab']=()=>{pon.clear();plast=null;plab();let k=0;AT.push(setInterval(()=>{if(k<PT.length){pon.add(PT[k][0]);plast=PT[k][0];k++}else{k=0;pon.clear();plast=null}plab()},1900))};
+LOOP['Prompt Lab']=()=>{pon.clear();plast=null;plab();let k=0,hold=0;AT.push(setInterval(()=>{if(k<PT.length){pon.add(PT[k][0]);plast=PT[k][0];k++}else if(++hold>5){k=0;hold=0;pon.clear();plast=null}else return;plab()},1900))};
 LOOP['Peta kemampuan Claude']=()=>{let hi=0;const O=$('#orbit');AT.push(setInterval(()=>{hi=hi%4+1;O.dataset.hi=hi},3200));let off=0;AT.push(setInterval(()=>{if(document.body.classList.contains('teams'))return;off+=.0035;$$('#orbit .sat').forEach((b,i)=>{const a=-Math.PI/2+i*2*Math.PI/SIMS.length+off;b.style.left=(50+40*Math.cos(a))+'%';b.style.top=(50+38*Math.sin(a))+'%'})},40))};
 /* kedalaman: panel ikut gerak mouse */
 document.addEventListener('mousemove',e=>{if(document.body.classList.contains('teams'))return;const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;document.documentElement.style.setProperty('--rx',(y*-4)+'deg');document.documentElement.style.setProperty('--ry',(x*6)+'deg')});
