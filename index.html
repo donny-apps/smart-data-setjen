@@ -814,6 +814,26 @@ h3{font-size:28px;font-weight:600}
 .pdf *,.pdf *::before,.pdf *::after{transition:none!important;animation-duration:0s!important;animation-delay:0s!important}
 .pdf .vctl,.pdf #playBig,.pdf #laser,.pdf #jump,.pdf #cdown{display:none!important}
 
+/* ---------- v27: penyegaran desain ---------- */
+/* Kicker dengan aksen garis emas */
+.sc>.kick,.sleft>.kick,.sc div:not([class])>.kick{display:flex;align-items:center;gap:12px}
+.sc>.kick::before,.sleft>.kick::before,.sc div:not([class])>.kick::before{content:"";flex:none;width:34px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--orange))}
+.lt>.kick::before,.lt .sleft>.kick::before,.lt div:not([class])>.kick::before{background:linear-gradient(90deg,var(--blue),var(--blue2))}
+/* Judul masuk bertahap saat slide tampil */
+@keyframes kin{from{opacity:0;transform:translateX(-14px)}}
+@keyframes hin{from{opacity:0;transform:translateY(22px)}}
+.sc.on>.kick{animation:kin .6s .08s cubic-bezier(.2,.8,.2,1) both}
+.sc.on>h2{animation:hin .8s .16s cubic-bezier(.2,.8,.2,1) both}
+/* Penekanan biru pada judul slide terang memakai gradasi */
+.lt h2 .bl{background:linear-gradient(90deg,var(--blue),#2B8EF0);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* Pola titik halus di sudut slide terang, garis kisi tipis di slide gelap */
+.lt::after{content:"";position:absolute;right:0;top:0;width:520px;height:360px;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(0,94,184,.22) 1.2px,transparent 1.7px);background-size:22px 22px;-webkit-mask-image:radial-gradient(circle at 100% 0%,#000,transparent 70%);mask-image:radial-gradient(circle at 100% 0%,#000,transparent 70%)}
+.dk::before{content:"";position:absolute;left:0;bottom:0;width:760px;height:520px;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(circle at 0% 100%,#000,transparent 72%);mask-image:radial-gradient(circle at 0% 100%,#000,transparent 72%)}
+.intro::before,.cover::before{display:none}
+/* Garis aksen tipis di bawah bar navigasi */
+.chrome::before{content:"";position:absolute;left:90px;right:90px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 15%,var(--line) 85%,transparent)}
+.isdk .chrome::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.14) 15%,rgba(255,255,255,.14) 85%,transparent)}
+
 /* ---------- Simulasi data mentah ke keputusan ---------- */
 .dsim{gap:16px}
 .dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}.dhead h2{font-size:46px;margin-top:6px}
@@ -1626,10 +1646,10 @@ const EV=[[0,()=>{shot(1);typeIt($('#type1'),'Senin, 08.00.',110)}],
  [9800,()=>{shot(3);countTo($('#n104'),90,2200)}],
  [15500,()=>shot(4)],
  [22200,()=>{shot(5);IN.classList.add('netv')}],
- [27000,()=>{shot(6);IN.classList.add('done');vDone=true;stopV()}]];
+ [27000,()=>{shot(6);IN.classList.add('done');vDone=true;stopV(true)}]];
 function stepV(){if(!vPlay)return;vt+=100;$('#vProg').style.width=Math.min(100,vt/VLEN*100)+'%';EV.forEach((e,i)=>{if(vt>=e[0]&&!vFired.has(i)){vFired.add(i);e[1]()}})}
 function startV(){if(vDone)return;sndPlay();IN.classList.remove('idle');vPlay=true;$('#vPlay').textContent='⏸';clearInterval(vIv);vIv=setInterval(stepV,100);stepV()}
-function stopV(){sndPause();vPlay=false;$('#vPlay').textContent='▶';clearInterval(vIv)}
+function stopV(keep){if(!keep)sndPause();vPlay=false;$('#vPlay').textContent='▶';clearInterval(vIv)}
 function resetV(){sndStop();stopV();vt=0;vDone=false;vFired.clear();IN.classList.remove('done','netv');IN.classList.add('idle');$('#vProg').style.width=0;shot(0)}
 function skipV(){sndFade();vFired=new Set(EV.map((_,i)=>i));vt=VLEN;shot(6);IN.classList.add('done','netv');vDone=true;stopV()}
 $('#playBig').onclick=()=>{startV();if(!T0)T0=Date.now()};$('#vPlay').onclick=()=>vPlay?stopV():startV();$('#vRe').onclick=()=>{resetV();startV()};$('#vSkip').onclick=skipV;
@@ -1899,13 +1919,13 @@ function sndBuild(){
  // Denyut lembut saat angka 90% (9,8 s sampai 15,5 s)
  for(let k=0;k<6;k++)nt(hz(45),t0+9.8+k*.95,.5,'sine',.16,G,.02);
  // Crescendo judul: C mayor terbuka + kilau
- const T=t0+27;[36,43,48,55,60,64,67,72,76].forEach((m,j)=>nt(hz(m),T+j*.05,7,j<3?'sine':'triangle',j<3?.11:.04,G,.6));
+ const T=t0+27;[36,43,48,55,60,64,67,72,76].forEach((m,j)=>nt(hz(m),T+j*.05,12,j<3?'sine':'triangle',j<3?.11:.04,G,.6));
  [84,88,91,96].forEach((m,j)=>nt(hz(m),T+.5+j*.22,3.2,'sine',.018,G,.05));
- G.gain.setValueAtTime(.85,T+4.5);G.gain.linearRampToValueAtTime(0,T+8)}
+ G.gain.setValueAtTime(.85,T+3);G.gain.exponentialRampToValueAtTime(.3,T+7);G.gain.exponentialRampToValueAtTime(.001,T+12);G.gain.setValueAtTime(0,T+12.1)}
 function sndPlay(){try{if(!AC)sndBuild();else if(AC.state==='suspended')AC.resume();IN.dataset.snd=AC.state}catch(e){IN.dataset.snd='galat: '+e.message}}
 function sndPause(){try{if(AC&&AC.state==='running')AC.suspend()}catch(e){}}
 function sndStop(){try{if(AC)AC.close()}catch(e){}AC=null}
-function sndFade(){if(!AC)return;try{const t=AC.currentTime;AM.gain.cancelScheduledValues(t);AM.gain.setValueAtTime(AM.gain.value,t);AM.gain.linearRampToValueAtTime(0,t+1.2);const a=AC;setTimeout(()=>{try{a.close()}catch(e){}},1500)}catch(e){}AC=null}
+function sndFade(){if(!AC)return;try{const t=AC.currentTime;AM.gain.cancelScheduledValues(t);AM.gain.setValueAtTime(AM.gain.value,t);AM.gain.setTargetAtTime(0,t,.7);const a=AC;setTimeout(()=>{try{a.close()}catch(e){}},3500)}catch(e){}AC=null}
 function sndToggle(){sndMute=!sndMute;$('#vSnd').classList.toggle('mute',sndMute);$('#vSnd').setAttribute('aria-label',sndMute?'Suara mati':'Suara aktif');if(AM)AM.gain.value=sndMute?0:1}
 $('#vSnd').onclick=sndToggle;
 document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key.toLowerCase()==='s'&&cur===0){sndToggle();e.stopImmediatePropagation()}},true);
