@@ -804,6 +804,16 @@ h3{font-size:28px;font-weight:600}
 .semai small{display:block;font-size:15px;font-weight:800;letter-spacing:.06em;color:var(--blue,#005EB8);text-transform:uppercase}
 .semai b{display:block;font-family:var(--h);font-size:19px;color:var(--navy);margin-top:4px}
 
+/* ---------- v26: QR dan unduh PDF di slide judul ---------- */
+.intro .final .ccard{position:absolute;top:52px;right:90px;z-index:4;display:flex;gap:16px;align-items:center;background:rgba(6,34,79,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:12px 20px 12px 12px;animation:zin .8s 1.1s both}
+.qrc{width:128px;height:128px;flex:none;background:#fff;border-radius:12px;padding:8px;overflow:hidden}.qrc canvas{display:none!important}.qrc img{display:block;width:112px!important;height:112px!important}
+.ccard small{display:block;color:var(--gold);font-weight:800;font-size:15px;letter-spacing:.14em}.ccard b{display:block;font-family:var(--h);font-size:20px;margin-top:2px}.ccard>div>span{display:block;font-size:16px;opacity:.75;font-family:var(--m);margin-top:2px}
+.pdfb{display:inline-flex;gap:8px;align-items:center;margin-top:10px;background:var(--gold);color:var(--navy);font-weight:800;font-size:15px;border-radius:99px;padding:8px 16px;text-decoration:none}.pdfb:hover{filter:brightness(1.08)}.pdfb .ik{width:17px;height:17px}
+
+/* ---------- v26: mode cetak PDF (?pdf) ---------- */
+.pdf *,.pdf *::before,.pdf *::after{transition:none!important;animation-duration:0s!important;animation-delay:0s!important}
+.pdf .vctl,.pdf #playBig,.pdf #laser,.pdf #jump,.pdf #cdown{display:none!important}
+
 /* ---------- Simulasi data mentah ke keputusan ---------- */
 .dsim{gap:16px}
 .dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}.dhead h2{font-size:46px;margin-top:6px}
@@ -899,6 +909,7 @@ h3{font-size:28px;font-weight:600}
     <span class="lab">AI LAB SETJEN</span>
     <h1>Smart Data,<span>Smarter Decisions</span></h1>
     <p class="subt">Optimalisasi AI dalam Analisis Data dan Pengambilan Keputusan</p>
+    <div class="ccard"><div class="qrc" id="qrc"></div><div><small>MATERI WEBINAR</small><b>Pindai untuk membuka</b><span>donny-apps.github.io/smart-data-setjen</span><a class="pdfb" href="Materi-Smart-Data-Setjen.pdf" download target="_blank" rel="noopener"><svg class="ik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Unduh PDF</a></div></div>
     <div class="meta"><span>Rabu, 11 November 2026</span><span>09.00–11.30 WIB</span><span>Microsoft Teams · Studio Lt. G Ortalakom</span><span id="cdown" style="color:var(--gold);font-weight:700"></span></div>
   </div>
   <div class="row" style="justify-content:space-between;align-items:flex-end">
@@ -1624,7 +1635,8 @@ function skipV(){sndFade();vFired=new Set(EV.map((_,i)=>i));vt=VLEN;shot(6);IN.c
 $('#playBig').onclick=()=>{startV();if(!T0)T0=Date.now()};$('#vPlay').onclick=()=>vPlay?stopV():startV();$('#vRe').onclick=()=>{resetV();startV()};$('#vSkip').onclick=skipV;
 IN.classList.add('idle');
 ON['Pembuka']=()=>{};
-const QS=new URLSearchParams(location.search).get('shot');if(QS!==null){const n=+QS;if(n>=6)skipV();else if(n>0){IN.classList.remove('idle');EV[n-1][1]()}}
+if(new URLSearchParams(location.search).has('pdf'))document.body.classList.add('pdf','teams');
+const QS=new URLSearchParams(location.search).get('shot');if(QS!==null)setTimeout(()=>{const n=+QS;if(n>=6){IN.classList.remove('idle');skipV()}else if(n>0){IN.classList.remove('idle');EV[n-1][1]()}});
 
 /* ---------- Rapat ---------- */
 const RAP=PETA.map(u=>({n:SH(u.n),v:u.k.rapat||0})).sort((a,b)=>b.v-a.v);
@@ -1899,7 +1911,8 @@ $('#vSnd').onclick=sndToggle;
 document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key.toLowerCase()==='s'&&cur===0){sndToggle();e.stopImmediatePropagation()}},true);
 
 /* ---------- v24: QR materi ---------- */
-function qrMake(){const q=$('#qr');if(!q||q.dataset.ok)return;if(window.QRCode){new QRCode(q,{text:'https://donny-apps.github.io/smart-data-setjen/',width:132,height:132,colorDark:'#06224F',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});q.dataset.ok=1}}
+function qrMake(){$$('#qr,#qrc').forEach(q=>{if(q.dataset.ok||!window.QRCode)return;const w=q.id==='qrc'?112:132;new QRCode(q,{text:'https://donny-apps.github.io/smart-data-setjen/',width:w,height:w,colorDark:'#06224F',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});q.dataset.ok=1})}
+$$('.pdfb').forEach(a=>a.addEventListener('click',e=>e.stopPropagation()));
 ON['Penutup']=()=>qrMake();window.addEventListener('load',qrMake);
 
 /* ---------- Simulasi data mentah ke keputusan ---------- */
