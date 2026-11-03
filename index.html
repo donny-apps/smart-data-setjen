@@ -792,6 +792,18 @@ h3{font-size:28px;font-weight:600}
 .qrw small{display:block;color:var(--gold);font-weight:800;font-size:15px;letter-spacing:.14em}.qrw b{display:block;font-family:var(--h);font-size:20px}.qrw span{font-size:15px;opacity:.8;font-family:var(--m)}
 .sfoto.vf{width:46%;opacity:.22}
 
+/* ---------- v25: foto tambahan ---------- */
+.sfoto.lo{opacity:.2}
+.intro>.shot.phw>*:not(.phx):not(.fcred){position:relative;z-index:1}
+.shot .phx{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.36;filter:saturate(.7);animation:kb2 30s linear infinite alternate}
+.shot .phx::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(3,27,68,.25),rgba(3,27,68,.85) 80%)}
+.teams .shot .phx{animation:none}
+.intro:has(.shot.phw.on)>.fcred.cv{opacity:0}.fcred.cv{transition:opacity .6s}
+.peg{gap:12px}.pg1{padding:16px 22px}
+.semai{border-left:4px solid var(--gold);background:#fff;border-radius:14px;padding:12px 18px;box-shadow:0 10px 24px -18px rgba(6,34,79,.6)}
+.semai small{display:block;font-size:15px;font-weight:800;letter-spacing:.06em;color:var(--blue,#005EB8);text-transform:uppercase}
+.semai b{display:block;font-family:var(--h);font-size:19px;color:var(--navy);margin-top:4px}
+
 /* ---------- Simulasi data mentah ke keputusan ---------- */
 .dsim{gap:16px}
 .dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}.dhead h2{font-size:46px;margin-top:6px}
@@ -877,9 +889,9 @@ h3{font-size:28px;font-weight:600}
   <div class="shot sh0 on" id="sh0"><div class="ph0"></div><img src="aset/logo-kemenkeu.png" alt="" class="lg0"><button class="playbig" id="playBig" aria-label="Putar pembuka">▶</button><span class="pl0">Sekretariat Jenderal Kementerian Keuangan · Webinar 11 November 2026</span></div>
   <div class="shot" id="sh1"><span class="type" id="type1"></span></div>
   <div class="shot" id="sh2"><div class="cal" id="cal"></div><div class="calc2"><span class="kick">Pekerjaan minggu ini</span><b id="calN">0</b></div></div>
-  <div class="shot" id="sh3"><div class="cnt"><b id="n104">0</b><span>%</span></div><p class="cap">pegawai sudah memakai AI.<br>Sebagian besar baru untuk menyusun naskah dan mencari referensi.<small>Asumsi</small></p></div>
+  <div class="shot phw" id="sh3"><div class="phx" style="background-image:url(aset/foto/pegawai-muda.jpg)"></div><span class="fcred cv">Foto: Setjen Kemenkeu</span><div class="cnt"><b id="n104">0</b><span>%</span></div><p class="cap">pegawai sudah memakai AI.<br>Sebagian besar baru untuk menyusun naskah dan mencari referensi.<small>Asumsi</small></p></div>
   <div class="shot" id="sh4"><div class="lines"><p>Data tersebar di banyak file.</p><p>Rekap dikerjakan ulang setiap bulan.</p><p>Bahan pimpinan datang terlambat.</p><p class="q">Pernah mengalaminya?</p></div></div>
-  <div class="shot" id="sh5"><p class="what">Data yang dikelola dengan cerdas,<br><span>keputusan yang lebih tepat.</span></p></div>
+  <div class="shot phw" id="sh5"><div class="phx" style="background-image:url(aset/foto/gedung-taman.jpg)"></div><span class="fcred cv">Foto: Setjen Kemenkeu</span><p class="what">Data yang dikelola dengan cerdas,<br><span>keputusan yang lebih tepat.</span></p></div>
   <div class="shot final" id="sh6">
     <div class="deco stripes"><i></i><i></i><i></i></div>
 <div class="org"><img src="aset/logo-kemenkeu.png" alt="Logo Kementerian Keuangan"><div>Sekretariat Jenderal<small>Kementerian Keuangan Republik Indonesia</small></div></div>
@@ -900,7 +912,7 @@ h3{font-size:28px;font-weight:600}
 
 <!-- 1 RAPAT -->
 <section class="sc dk rapat" data-t="Rapat" data-r="0">
-  <div class="deco stripes" style="opacity:.2"><i></i><i></i><i></i></div>
+  <div class="deco sfoto lo" style="background-image:url(aset/foto/ruang-rapat.jpg)"></div><span class="fcred">Foto: Kemenkeu</span>
   <div class="kick">Data simulasi · rapat, sidang, dan pembahasan</div>
   <h2>Rapat menyerap jam kerja terbesar. <span class="y">Sudahkah efektif?</span></h2>
   <div class="rgrid">
@@ -939,7 +951,7 @@ h3{font-size:28px;font-weight:600}
 
 <!-- PEMBANDING GLOBAL -->
 <section class="sc dk" data-t="Pembanding global" data-r="0">
-  <div class="deco stripes" style="opacity:.16"><i></i><i></i><i></i></div>
+  <div class="deco sfoto lo" style="background-image:url(aset/foto/gedung-djuanda.jpg)"></div><span class="fcred">Foto: Kemenkeu</span>
   <div class="kick">Pembanding global</div>
   <h2>Sudah memakai AI belum tentu <span class="y">berdampak.</span></h2>
   <div class="glob">
@@ -1277,9 +1289,10 @@ Simpan hasil di folder Output. Tunjukkan rencana kerja terlebih dahulu sebelum m
       <div class="pg1 f"><span><svg class="ik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 11l2 2 4-4"/></svg></span><div><b>Manusia memutuskan</b><small>AI menyiapkan. Pejabat menandatangani.</small></div></div>
       <div class="pg1 f"><span><svg class="ik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><div><b>Verifikasi sebelum digunakan</b><small>Angka melalui kode, dasar hukum melalui JDIH.</small></div></div>
       <div class="pg1 f"><span><svg class="ik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span><div><b>Transparan</b><small>Cantumkan bila disusun dengan bantuan AI.</small></div></div>
+      <div class="semai f"><small>Sejalan dengan Seminar AI Kemenkeu · 26 Oktober 2026</small><b>Manfaatkan teknologi, jaga nalar dan keamanan data.</b></div>
     </div>
   </div>
-  <p class="src">Acuan: SE Menkominfo No. 9 Tahun 2023 tentang Etika Kecerdasan Artifisial; UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi. Empat prinsip di atas merupakan usulan.</p>
+  <p class="src">Acuan: SE Menkominfo No. 9 Tahun 2023 tentang Etika Kecerdasan Artifisial; UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi. Empat prinsip di atas merupakan usulan. Seminar: setjen.kemenkeu.go.id.</p>
 </section>
 
 <!-- VISI -->
