@@ -786,6 +786,12 @@ h3{font-size:28px;font-weight:600}
 /* ---------- v23: tombol suara pembuka ---------- */
 #vSnd .ik{width:18px;height:18px;vertical-align:-3px}#vSnd.mute .sw{display:none}#vSnd.mute{opacity:.6}
 
+/* ---------- v24 ---------- */
+.qrw{display:flex;gap:16px;align-items:center;margin-left:auto;margin-right:28px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:12px 18px 12px 12px}
+.qr{width:148px;height:148px;background:#fff;border-radius:12px;padding:8px;display:grid;place-items:center}#qr{width:148px!important;height:148px!important;flex:none;overflow:hidden;padding:8px!important}#qr canvas{display:none!important}#qr img{display:block;width:132px!important;height:132px!important}
+.qrw small{display:block;color:var(--gold);font-weight:800;font-size:15px;letter-spacing:.14em}.qrw b{display:block;font-family:var(--h);font-size:20px}.qrw span{font-size:15px;opacity:.8;font-family:var(--m)}
+.sfoto.vf{width:46%;opacity:.22}
+
 /* ---------- Simulasi data mentah ke keputusan ---------- */
 .dsim{gap:16px}
 .dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}.dhead h2{font-size:46px;margin-top:6px}
@@ -1330,7 +1336,7 @@ Simpan hasil di folder Output. Tunjukkan rencana kerja terlebih dahulu sebelum m
   <div class="kick">Penutup</div>
   <h2>AI menyiapkan bahan. <span class="y">Keputusan tetap di tangan kita.</span></h2>
   <div class="qa"><span><svg class="ik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><div><b>Sesi tanya jawab</b><small>Tulis pertanyaan di chat Teams, atau angkat tangan (Raise hand).</small></div></div>
-  <div class="endfoot"><div class="spk"><img src="aset/narasumber.jpg" alt="Foto Donny Maha Putra"><div><small>TERIMA KASIH</small><b>Donny Maha Putra</b><span>Kepala Bagian Strategi Organisasi dan Proses Bisnis · Biro Organta</span></div></div><img class="endlogo" src="aset/logo-kemenkeu.png" alt="Logo Kementerian Keuangan"></div>
+  <div class="endfoot"><div class="spk"><img src="aset/narasumber.jpg" alt="Foto Donny Maha Putra"><div><small>TERIMA KASIH</small><b>Donny Maha Putra</b><span>Kepala Bagian Strategi Organisasi dan Proses Bisnis · Biro Organta</span></div></div><div class="qrw"><div class="qr" id="qr"></div><div><small>MATERI DAPAT DIAKSES</small><b>Pindai dengan kamera ponsel</b><span>donny-apps.github.io/smart-data-setjen</span></div></div><img class="endlogo" src="aset/logo-kemenkeu.png" alt="Logo Kementerian Keuangan"></div>
   </section>
 
 <div class="chrome"><img src="aset/logo-kemenkeu.png" alt=""><b>AI Lab Setjen</b><span>Smart Data, Smarter Decisions</span><span class="webtag">Versi web · data simulasi</span><div class="rd" id="rd"><span>Pembuka</span><span>Sesi 1</span><span>Sesi 2</span><span>Sesi 3</span><span>Sesi 4</span><span>Penutup</span></div><div class="nav"><button id="nHome" title="Kembali ke slide pembuka (Home)" aria-label="Kembali ke slide pembuka"><svg class="ik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10M9.7 21V10M14.3 21V10M19 21V10M2 10l10-6 10 6z"/></svg></button><button id="nPrev" title="Sebelumnya (←)" aria-label="Slide sebelumnya">‹</button><button id="nList" title="Daftar slide (M)" aria-label="Daftar slide"><span class="pg" id="pg"></span></button><button id="nNext" title="Berikutnya (→)" aria-label="Slide berikutnya">›</button></div></div>
@@ -1878,6 +1884,10 @@ function sndFade(){if(!AC)return;try{const t=AC.currentTime;AM.gain.cancelSchedu
 function sndToggle(){sndMute=!sndMute;$('#vSnd').classList.toggle('mute',sndMute);$('#vSnd').setAttribute('aria-label',sndMute?'Suara mati':'Suara aktif');if(AM)AM.gain.value=sndMute?0:1}
 $('#vSnd').onclick=sndToggle;
 document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key.toLowerCase()==='s'&&cur===0){sndToggle();e.stopImmediatePropagation()}},true);
+
+/* ---------- v24: QR materi ---------- */
+function qrMake(){const q=$('#qr');if(!q||q.dataset.ok)return;if(window.QRCode){new QRCode(q,{text:'https://donny-apps.github.io/smart-data-setjen/',width:132,height:132,colorDark:'#06224F',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});q.dataset.ok=1}}
+ON['Penutup']=()=>qrMake();window.addEventListener('load',qrMake);
 
 /* ---------- Simulasi data mentah ke keputusan ---------- */
 const DTERM=[["u", "Pelajari 3 berkas di input/Data Budaya. Jangan ubah file asli. Cocokkan angka dengan laporan resmi terlebih dahulu."], ["s", "Membaca dataset_individu.xlsx · 26.963 responden sah · 25 butir perilaku"], ["s", "Membaca dataset_organisasi.xlsx · 6.611 baris · pengisi pejabat struktural"], ["k", "Skor = rata-rata butir per nilai × 20  →  individu 90,5 · organisasi 90,4"], ["ok", "Cocok dengan laporan resmi survei"], ["w", "Temuan: 6.935 responden (25,7%) memberi angka yang sama di seluruh 25 butir"], ["w", "Kolom Respondent ID dan alamat IP ada di data → tidak ditayangkan"], ["ok", "grafik.html dan ringkasan.docx disimpan di folder output"]];let dsi=0,dpause=false;
